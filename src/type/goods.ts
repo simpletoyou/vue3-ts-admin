@@ -18,6 +18,6 @@ export class InitData {
     introduce: "",
     page: 1,
     count: 0,
-    pagesize: 10
+    pagesize: 5
   }
 }
