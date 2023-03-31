@@ -4,7 +4,7 @@
  * @Author: ChenShuShu
  * @Date: 2023-03-29 13:03:27
  * @LastEditors: ChenShuShu
- * @LastEditTime: 2023-03-29 13:41:35
+ * @LastEditTime: 2023-03-31 15:24:34
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
@@ -13,7 +13,27 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    children: [
+      {
+        path: 'goods',
+        name: 'goods',
+        meta: {
+          isShow: true,
+          title: '商品列表'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/GoodsView.vue')
+      },
+      {
+        path: 'user',
+        name: 'user',
+        meta: {
+          isShow: true,
+          title: '用户列表'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/UserView.vue')
+      }
+    ]
   },
   {
     path: '/about',
