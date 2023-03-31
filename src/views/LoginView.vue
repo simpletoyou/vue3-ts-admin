@@ -4,7 +4,7 @@
  * @Author: ChenShuShu
  * @Date: 2023-03-29 13:37:42
  * @LastEditors: ChenShuShu
- * @LastEditTime: 2023-03-29 17:12:25
+ * @LastEditTime: 2023-03-31 20:56:46
 -->
 <template>
   <div class="login-box">
@@ -81,7 +81,6 @@ export default defineComponent({
           console.log('submit!')
           // 调用登录接口
           login(data.ruleForm).then((res) => {
-            console.log({ res });
             // 保存token
             localStorage.setItem('token', res.data.token)
             // 跳转到首页
@@ -92,7 +91,6 @@ export default defineComponent({
           return false
         }
       })
-      console.log({ formEl });
 
     }
     // 重置

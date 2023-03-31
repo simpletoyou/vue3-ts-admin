@@ -4,7 +4,7 @@
  * @Author: ChenShuShu
  * @Date: 2023-03-29 16:12:20
  * @LastEditors: ChenShuShu
- * @LastEditTime: 2023-03-29 17:11:12
+ * @LastEditTime: 2023-03-31 21:10:24
  */
 import axios from "axios";
 // 创建axios实例
@@ -18,7 +18,6 @@ const service = axios.create({
 
 //请求拦截
 service.interceptors.request.use((config) => {
-  console.log({ config })
   config.headers = config.headers || {}
   if (localStorage.getItem('token')) {
     config.headers.token = localStorage.getItem('token')
@@ -28,10 +27,7 @@ service.interceptors.request.use((config) => {
 
 //响应拦截
 service.interceptors.response.use((res) => {
-  console.log({ res })
-  const code: number = res.data.data.code
-  console.log({ code });
-
+  const code: number = res.data.data.code || res.data.code
   if (code != 200) {
     return Promise.reject(res.data)
   }

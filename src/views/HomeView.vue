@@ -4,7 +4,7 @@
  * @Author: ChenShuShu
  * @Date: 2023-03-31 00:37:27
  * @LastEditors: ChenShuShu
- * @LastEditTime: 2023-03-31 15:24:16
+ * @LastEditTime: 2023-03-31 20:33:49
 -->
 <template>
   <div class="home">
@@ -68,7 +68,7 @@ export default defineComponent({
   color: #FFF;
 
   .logo {
-    height: 04px;
+    height: 80px;
 
   }
 
