@@ -4,7 +4,7 @@
  * @Author: ChenShuShu
  * @Date: 2023-03-31 14:15:56
  * @LastEditors: ChenShuShu
- * @LastEditTime: 2023-03-31 22:05:17
+ * @LastEditTime: 2023-04-01 15:07:43
 -->
 <template>
   <div>
@@ -35,21 +35,25 @@
 
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed, watch } from 'vue'
+import { defineComponent, reactive, toRefs, computed, watch, onMounted } from 'vue'
 import { getGoodsList } from '../request/api'
 import { InitData, ListInt } from "../type/goods"
 
 
 export default defineComponent({
   setup() {
-
     const data = reactive(new InitData())
+    onMounted(() => {
+      getGoods()
+    })
+    const getGoods = () => {
+      getGoodsList().then((res) => {
+        data.list = res.data
+        allData = res.data
+        data.selectData.count = res.data.length
+      });
+    }
     let allData: ListInt[] = []
-    getGoodsList().then((res) => {
-      data.list = res.data
-      allData = res.data
-      data.selectData.count = res.data.length
-    });
     const dataList = reactive({
       comList: computed(() => {
         return data.list.slice((data.selectData.page - 1) * data.selectData.pagesize, data.selectData.page * data.selectData.pagesize)
@@ -62,8 +66,6 @@ export default defineComponent({
       data.selectData.pagesize = pagesize
     }
     const onSubmit = () => {
-      console.log(data.selectData.title);
-      console.log(data.selectData.introduce);
       let arr: ListInt[] = []//定义数组，存放筛选后表格数据
       if (data.selectData.title || data.selectData.introduce) {
         //判断是否有筛选条件
@@ -82,7 +84,6 @@ export default defineComponent({
       }
       data.list = arr
       data.selectData.count = arr.length
-
     }
     // 监听输入框的两个属性
     watch([() => data.selectData.title, () => data.selectData.introduce], () => {
